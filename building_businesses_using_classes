@@ -1,0 +1,108 @@
+# Time convention of this script uses 2400 hours. Please use this for your inputs
+
+class Menu:
+  def __init__(self, name, items, start_time, end_time):
+    self.name = name
+    self.item = items
+    self.start_time = start_time
+    self.end_time = end_time
+
+  def __repr__(self):
+    return '{name} menu available from {start_time} hours to {end_time} hours'.format(name=self.name, start_time=self.start_time, end_time=self.end_time)
+  
+  def calculate_bill(self, purchased_items):
+    self.purchased_items = purchased_items
+    total = 0
+    for key, value in self.purchased_items:
+      item = key
+      price = value
+      print(item, price)
+      total += price
+
+    return 'Your total is £{:.2f}'.format(total)
+
+class Franchise:
+  def __init__(self, address, menus):
+    self.address = address
+    self.menus = menus
+  
+  def __repr__(self):
+    return 'You are at {}'.format(self.address)
+  
+  def available_menus(self, time):
+    self.time = time
+    if time < brunch.end_time:
+      return 'available menus: Brunch and Kids'
+    elif time > early_bird.start_time and time < brunch.end_time:
+      return 'available menus: Brunch, Early Bird and Kids'
+    elif time > dinner.start_time and time < early_bird.end_time:
+      return 'available menus: Early Bird, Dinner and Kids'
+    elif time > kids.end_time and time < dinner.end:
+      return 'available menus: Dinner and Kids'
+    else:
+      return 'available menu: Dinner'
+
+class Business:
+  def __init__(self, name, franchises):
+    self.name = name
+    self.franchises = franchises
+
+# Brunch Menu
+brunch_items = {
+  'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00, 'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
+}
+
+brunch = Menu('Brunch', brunch_items, 1100, 1600)
+
+# Early Bird Menu
+
+early_bird_items = {
+  'pancakes': 7.50, 'waffles': 9.00, 'burger': 11.00, 'home fries': 4.50, 'coffee': 1.50, 'espresso': 3.00, 'tea': 1.00, 'mimosa': 10.50, 'orange juice': 3.50
+}
+
+early_bird = Menu('Early Bird', early_bird_items, 1500, 1800)
+
+# Dinner Menu
+
+dinner_items = {
+  'crostini with eggplant caponata': 13.00, 'caesar salad': 16.00, 'pizza with quattro formaggi': 11.00, 'duck ragu': 19.50, 'mushroom ravioli (vegan)': 13.50, 'coffee': 2.00, 'espresso': 3.00,
+}
+
+dinner = Menu('Dinner', dinner_items, 1700, 2300)
+
+# Kids Menu
+
+kids_items = {
+  'chicken nuggets': 6.50, 'fusilli with wild mushrooms': 12.00, 'apple juice': 3.00
+}
+
+kids = Menu('Kids', kids_items, 1100, 2100)
+
+menu_list = [brunch, early_bird, dinner, kids]
+
+flagship_store = Franchise('1232 West End Road', menu_list)
+
+new_installment = Franchise('12 East Mulberry Street', menu_list)
+
+franchise_list = [flagship_store, new_installment]
+first_business = Business('Basta Fazoolin\' with my Heart', franchise_list)
+
+arepas_menu_items = {
+  'arepa pabellon': 7.00, 'pernil arepa': 8.50, 'guayanes arepa': 8.00, 'jamon arepa': 7.50
+}
+
+arepas_menu = Menu('Take a\' Arepa', arepas_menu_items, 1000, 2000)
+
+arepas_place = Franchise('189 Fitzgerald Avenue', arepas_menu_items)
+
+
+
+second_business = Business('Take a\' Arepa', arepas_place)
+
+# print(second_business.franchises)
+
+# print(new_installment.available_menus(1759))
+# order = {}
+# print(brunch)
+# print(brunch.calculate_bill(order.items()))
+# print(flagship_store)
